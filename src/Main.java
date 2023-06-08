@@ -86,11 +86,6 @@
         cupcakeMenu.add(redVelvet);
         // Add chocolate to cupcakeMenu
         cupcakeMenu.add(chocolate);
-        // Print cupcakeMenu
-        for (Cupcake menu : cupcakeMenu) {
-            menu.type();
-            System.out.println(menu.getPrice());
-        }
 
         // ? Drink Menu
 
@@ -150,18 +145,11 @@
         // add milk to drinkMenu
         drinkMenu.add(milk);
 
-        // Print cupcakeMenu
-        for (Drink menu : drinkMenu) {
-            menu.type();
-            System.out.println(menu.getPrice());
-        }
-
+        // Back in Main.java and below drinkMenu.add(milk), call the Order constructor and pass in cupcakeMenu and drinkMenu as parameters.
+        new Order(cupcakeMenu, drinkMenu);
     }
 
-    // * 2. Generic Cupcake
-
-    // Create a new class named Cupcake. This will be the class all other cupcakes inherit from.
-    static class Cupcake {
+    static class MenuItem {
         // Create a public double variable named price, but do not assign it a value.
         public double price;
         // Create a public function named getPrice that has no parameters and returns the price.
@@ -173,9 +161,19 @@
         public void setPrice(double price) {
             this.price = price;
         }
-        // Create a public function named type that prints “A basic, generic cupcake, with vanilla frosting” and returns void.
-        public void type() {
+        public boolean type() {
+            System.out.println("A menu item");
+            return false;
+        }
+    }
+
+    // * 2. Generic Cupcake
+
+    // Create a new class named Cupcake. This will be the class all other cupcakes inherit from.
+    static class Cupcake extends MenuItem{
+        public boolean type() {
             System.out.println("A basic, generic cupcake, with vanilla frosting");
+            return false;
         }
     }
 
@@ -183,8 +181,9 @@
 
     // Create a new class named RedVelvet that inherits from the Cupcake class you created
     static class RedVelvet extends Cupcake {
-        public void type() {
+        public boolean type() {
             System.out.println("A red velvet cupcake, with cream cheese frosting");
+            return false;
         }
     }
 
@@ -192,46 +191,36 @@
     static class Chocolate extends Cupcake
     {
         // Create a public function named type that returns void and prints a description of the cupcake
-        public void type()
+        public boolean type()
         {
             System.out.println("A chocolate based cupcake, with chocolate frosting");
+            return false;
         }
     }
     // Create a new class named Drink. This will be the class all other drinks inherit from.
-    static class Drink {
-        // Create a public double variable named price, but do not assign it a value
-        public double price;
-
-        // Create a public function named getPrice that has no parameters and returns the price
-        public double getPrice() {
-            return price;
-        }
-
-        // Create a public function named setPrice that has one parameter, a double named price, and returns void
-        public void setPrice(double price) {
-            this.price = price;
-        }
-
-        // Create a public function named type that prints a description and returns void
-        public void type()
+    static class Drink extends MenuItem {
+        public boolean type()
         {
             System.out.println("A bottle of water");
+            return false;
         }
     }
     // Create a new class named Soda that extends from Drink
     static class Soda extends Drink {
         // Create a public function named type that prints a description and returns void
-        public void type() {
+        public boolean type() {
             System.out.println("A bottle of soda");
+            return false;
         }
     }
     //Create a new class named Milk that extends from Drink
     static class Milk extends Drink
     {
         // Create a public function named type that prints a description and returns void
-        public void type()
+        public boolean type()
         {
             System.out.println("A bottle of milk");
+            return false;
         }
     }
 
