@@ -61,5 +61,9 @@ WHERE product_id = (
 DELETE FROM PRODUCT
 WHERE model = 'Soltera';
 
+UPDATE product
+SET brand ='Morning star'
+WHERE brand = 'Aventon'
+
 
 
