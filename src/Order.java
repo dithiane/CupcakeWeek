@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -100,7 +104,63 @@ public class Order {
         {
             System.out.println("Have a nice day then");
         }
+        // Create a new CreateFile()
+       new CreateFile();
+        // Create a new WriteToFile() with the parameter order
+        new WriteToFile(order);
+
     }
+
+    // Create a class named CreateFile
+    static class CreateFile {
+        // Create a public constructor function
+        public CreateFile() {
+            // Create a try catch block, with a catch parameter of IOException e
+            try {
+                // Create a File object named salesData and set it equal to a new File with the parameter "salesData.txt"
+                File salesData = new File("salesData.txt");
+                // Create an if statement with that parameter salesData.createNewFile()
+                // .createNewFile() will return true if a new file is created
+                if (salesData.createNewFile()) {
+                    System.out.println("File created: " + salesData.getName());
+                }
+                else {
+                    System.out.println("File already exists");
+                }
+            }
+            catch (IOException e) {
+                System.out.println("An error occurred");
+            }
+        }
+    }
+
+    // Create a class named WriteToFile
+    static class WriteToFile {
+        // Create a public constructor function named WriteToFunction(), with ArrayList<Object> order as the parameter
+        public WriteToFile(ArrayList<Object> order) {
+            // Create a try catch block, with a catch parameter of IOException e
+            try {
+                // Create a new FileWriter object named fw, and set it equal to new FileWriter whose constructor
+                // parameters are the name of the object "salesData.txt", and the boolean true, which is an option that
+                // allows for appending to the file
+                FileWriter fw = new FileWriter("salesData.txt", true);
+                // Create a new PrintWriter object named salesWriter, and set it equal to new PrintWriter object whose
+                // constructor parameter is the FileWriter object fw created previously.
+                PrintWriter salesWriter = new PrintWriter(fw);
+                // Print each value in order.
+                for (Object o : order) {
+                    salesWriter.println(o);
+                }
+                // Stop the writer from continuing to run
+                salesWriter.close();
+                System.out.println("Successfully wrote to the file");
+            }
+            catch (IOException e) {
+                System.out.println("An error occurred");
+            }
+        }
+    }
+
 
     public Double checkMenu(int i, Double subTotal, ArrayList<Object> order, ArrayList<Main.Cupcake> cupcakeMenu, ArrayList<Main.Drink> drinkMenu ){
         for (Main.Cupcake capcake : cupcakeMenu) {
@@ -124,7 +184,7 @@ public class Order {
 
     public void choiceMenu(int choice, ArrayList<Object> order, ArrayList<Main.Cupcake> cupcakeMenu, ArrayList<Main.Drink> drinkMenu) {
         // Add the first item from the cupcakeMenu/drinkMenu array to the order array
-        if (choice <= 4) order.add(cupcakeMenu.get(choice - 1));
+        if (choice < 4) order.add(cupcakeMenu.get(choice - 1));
         else order.add(drinkMenu.get(choice - 4));
         // If so, add the first item from the cupcakeMenu/drinkMenu ArrayList to the order ArrayList and print “Item added to order”.
         System.out.println("Item added to order");
